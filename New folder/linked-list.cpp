@@ -12,10 +12,12 @@ class LinkedList
 {
 public:
     node* head;
+    int sz;
 
     LinkedList()
     {
         head = NULL;
+        sz=0;
     }
     node* CreateNewNode(int value)
     {
@@ -27,6 +29,7 @@ public:
     }
     void InsertAtHead(int value)
     {
+        sz++;
         node* a = CreateNewNode(value);
         if(head == NULL)
         {
@@ -72,31 +75,100 @@ public:
             index++;
         }
     }
+
+    int getSize()
+    {
+        return sz;
+    }
+
+    void InsertAtAnyIndex(int index, int value)
+    {
+        if(index < 0 || index > sz)
+        {
+            cout << "index " << index << " is invelied!\n";
+            return;
+        }
+        if(index == 0)
+        {
+            InsertAtHead(value);
+            return;
+        }
+        sz++;
+        node* a = head;
+        int cur_index = 0;
+        while(cur_index != index-1)
+        {
+            a=a->nxt;
+            cur_index++;
+        }
+        node* newNode = CreateNewNode(value);
+        newNode->nxt = a->nxt;
+        a->nxt = newNode;
+    }
+
+    void DeleteAtHead()
+    {
+        if(head == NULL) return;
+        sz--;
+        node* a = head;
+        head = a->nxt;
+        delete a;
+    }
+
+    void DeleteAtAnyIndex(int index)
+    {
+        if(index < 0 || index > sz-1)
+        {
+            cout << "index " << index << " is invelied!\n";
+            return;
+        }
+        if(index == 0)
+        {
+            DeleteAtHead();
+            return;
+        }
+        sz--;
+        node* a = head;
+        int cur_index = 0;
+        while(cur_index != index-1)
+        {
+            a=a->nxt;
+            cur_index++;
+        }
+        node* b = a->nxt;
+        a->nxt = b->nxt;
+        delete b;
+    }
+
 };
 
 int main()
 {
     LinkedList l;
 
-    l.Traverse();
-
     l.InsertAtHead(10);
-    l.Traverse();
-
+    l.InsertAtHead(30);    l.InsertAtHead(20);
     l.InsertAtHead(30);
     l.Traverse();
 
-    l.InsertAtHead(20);
+    l.InsertAtAnyIndex(1, 100);
+    l.Traverse();
+    l.InsertAtAnyIndex(5, 500);
     l.Traverse();
+    cout << "Size: " << l.getSize() << "\n";
 
-    l.InsertAtHead(30);
+//    l.InsertAtAnyIndex(10, 800);
+//    l.Traverse();
+//    cout << "Size: " << l.getSize() << "\n";
+
+    l.DeleteAtHead();
     l.Traverse();
+    cout << "Size: " << l.getSize() << "\n";
 
-    cout<<"10 is found at "<<l.SearchDistinctValue(10)<<"\n";
-    cout<<"5 is found at "<<l.SearchDistinctValue(5)<<"\n";
-    cout<<"30 is found at "<<l.SearchDistinctValue(30)<<"\n";
+    l.DeleteAtAnyIndex(2);
+    l.Traverse();
+    cout << "Size: " << l.getSize() << "\n";
 
-    l.SearchAllValue(30);
 
     return 0;
 }
