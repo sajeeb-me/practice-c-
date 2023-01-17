@@ -124,18 +124,21 @@ public:
 
     void SortNode()
     {
-        Node* a = head;
-        while(a != NULL)
+        Node* currentNode = head;
+        while(currentNode != NULL)
         {
-            if(a->value > a->next->value)
+            Node* nextNode = currentNode->next;
+            while(nextNode != NULL)
             {
-                Node* temp = a->next;
-                cout<<"big: " << temp->value << "\n";
-                a->next = temp->next;
-                temp->next = a;
-                a=a->next;
+                if(currentNode->value >nextNode->value)
+                {
+                    int temp = currentNode->value;
+                    currentNode->value = nextNode->value;
+                    nextNode->value = temp;
+                }
+                nextNode = nextNode->next;
             }
-                a = a->next;
+            currentNode = currentNode->next;
         }
         cout << "\n";
     }
@@ -146,11 +149,11 @@ int main()
 {
     LinkedList l;
 
-    l.InsertAtHead(5);
-    l.InsertAtHead(4);
-    l.InsertAtHead(3);
     l.InsertAtHead(2);
+    l.InsertAtHead(4);
+    l.InsertAtHead(5);
     l.InsertAtHead(1);
+    l.InsertAtHead(3);
     l.InsertAtHead(0);
     l.Traverse();
 
