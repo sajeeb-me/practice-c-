@@ -101,16 +101,12 @@ public:
     void Reverse()
     {
         if(head == NULL)
-        {
             return;
-        }
+
         Node* a = head;
-        int idx_size = 0;
-        while(idx_size != sz-1)
-        {
+        while(a->nxt != NULL)
             a = a->nxt;
-            idx_size++;
-        }
+
         Node* b = head;
         while(b != NULL)
         {
@@ -203,10 +199,13 @@ int main()
 
     dl.InsertAtHead(1);
     dl.InsertAtHead(2);
-//    dl.InsertAtHead(3);
     dl.InsertAtHead(3);
-    dl.InsertAtHead(2);
-    dl.InsertAtHead(1);
+    dl.InsertAtHead(4);
+    dl.InsertAtHead(5);
+    dl.InsertAtHead(6);
+//    dl.InsertAtHead(3);
+//    dl.InsertAtHead(2);
+//    dl.InsertAtHead(1);
 
 //    dl.InsertAtHead(0);
     dl.Traverse();
@@ -217,14 +216,14 @@ int main()
 //    dl.DeleteAnElement(100);
 //    dl.Traverse();
 
-    cout << dl.IsPalindrome() << "\n";
+//    cout << dl.IsPalindrome() << "\n";
 
 
 //    dl.RemoveLastElement();
 //    dl.Traverse();
 
-//    dl.Reverse();
-//    dl.Traverse();
+    dl.Reverse();
+    dl.Traverse();
 
 //    dl.SearchIthElement(2);
 //    cout << dl.SearchValue(4) << "\n";
