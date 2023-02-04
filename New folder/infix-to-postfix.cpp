@@ -11,21 +11,20 @@ int prec(char ch)
 
 int main()
 {
-    string s;
-    cin >> s;
+    string infix = "a+b*c+d*e";
     stack<int>st;
-    string ans = "";
+    string postfix = "";
 
-    for(int i=0; i<s.size(); i++)
+    for(int i=0; i<infix.size(); i++)
     {
-        char now = s[i];
+        char now = infix[i];
         if(now >='a' && now <= 'z')
-            ans += now;
+            postfix += now;
         else
         {
             while(st.size() && prec(st.top()) >= prec(now))
             {
-                ans += st.top();
+                postfix += st.top();
                 st.pop();
             }
             st.push(now);
@@ -33,10 +32,10 @@ int main()
     }
     while(st.size())
     {
-        ans += st.top();
+        postfix += st.top();
         st.pop();
     }
-    cout << ans << "\n";
+    cout << postfix << "\n";
 
     return 0;
 }
