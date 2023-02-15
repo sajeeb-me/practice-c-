@@ -94,6 +94,14 @@ public:
         Search(a->Left, value);
         Search(a->Right, value);
     }
+    int height(node* a)
+    {
+        if(a == NULL)
+            return 0;
+        int leftHeight = height(a->Left);
+        int rightHeight = height(a->Right);
+        return max(leftHeight, rightHeight)+1;
+    }
 //  BFS
     void BFS()
     {
@@ -145,6 +153,18 @@ public:
         Postorder(a->Right);
         cout << a->id << " ";
     }
+    bool isPerfect(node* a)
+    {
+        if(a == NULL)
+            return true;
+        int leftHeight = height(a->Left);
+        int rightHeight = height(a->Right);
+        if(leftHeight != rightHeight)
+            return false;
+
+        return isPerfect(a->Left) && isPerfect(a->Right);
+    }
+
 };
 
 int main()
@@ -157,13 +177,17 @@ int main()
     bt.Insertaion(4, 8);
     bt.Insertaion(5, 5);
     bt.Insertaion(6, 7);
+
+    cout << "Height: " << bt.height(bt.root) << "\n";
+    cout << "Is perfect: " << (bt.isPerfect(bt.root) ? "Yes\n" : "No\n" );
+
 //    bt.build_binary_tree();
 //    bt.BFS();
 //    bt.Inorder(bt.root);
 //    bt.Preorder(bt.root);
 //    bt.Postorder(bt.root);
 
-    bt.Search(bt.root, 8);
+//    bt.Search(bt.root, 8);
 
     return 0;
 }
