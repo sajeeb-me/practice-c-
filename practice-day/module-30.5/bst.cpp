@@ -18,7 +18,6 @@ public:
     {
         root = NULL;
     }
-
     node* CreateNewNode(int value)
     {
         node* newNode = new node;
@@ -31,12 +30,11 @@ public:
     {
         queue<node*>q;
         q.push(root);
-
         while(!q.empty())
         {
             node* a = q.front();
             q.pop();
-            int p = -1, l = -1, r = -1;
+            int l = -1, r = -1;
             if(a->Left != NULL)
             {
                 l = a->Left->value;
@@ -47,19 +45,17 @@ public:
                 r = a->Right->value;
                 q.push(a->Right);
             }
-            cout << "Node value = " << a->value << " Left child = " << l << " Right child = " << r << "\n";
+            cout << "Node value: " << a->value << " Left child: " << l << " Right child: " << r << "\n";
         }
     }
     void Insert(int value)
     {
         node* newNode = CreateNewNode(value);
-
         if(root == NULL)
         {
             root = newNode;
             return;
         }
-
         node* cur = root;
         node* prv = NULL;
 
@@ -99,7 +95,6 @@ public:
     {
         node* cur = root;
         node* prv = NULL;
-
         while(cur != NULL)
         {
             if(value > cur->value)
@@ -117,10 +112,10 @@ public:
         }
         if(cur == NULL)
         {
-            cout << "Value is not present in BST\n";
+            cout << "Value is not present!\n";
             return;
         }
-        // Case 1: no child
+        // Case 1: node has no child
         if(cur->Left == NULL && cur->Right == NULL)
         {
             if(prv->Left->value == cur->value)
@@ -157,27 +152,59 @@ public:
         Delete(saved);
         cur->value = saved;
     }
+    int Minimum()
+    {
+        node* a = root;
+        while(a->Left != NULL)
+            a = a->Left;
+        return a->value;
+    }
+    int Maximum()
+    {
+        node* a = root;
+        while(a->Right != NULL)
+            a = a->Right;
+        return a->value;
+    }
+    bool isValidBinaryTree(node* a)
+    {
+//        node* leftHigh = a->Left;
+//        while(leftHigh->Right != NULL)
+//            leftHigh = leftHigh->Right;
+//        int leftHightValue = leftHigh->value;
+//        node* rightLow = a->Right;
+//        while(rightLow->Left != NULL)
+//            rightLow = rightLow->Left;
+//        int rightLowValue = rightLow->value;
+//
+//        cout << "left high value: " << leftHightValue << " , right low value: " << rightLowValue << "\n";
+
+        if(a == NULL)
+            return true;
+        if((a->Left != NULL && a->Left->value > a->value) || (a->Right != NULL && a->Right->value <= a->value))
+            return false;
+
+        return isValidBinaryTree(a->Left) && isValidBinaryTree(a->Right);
+    }
 };
 
 int main()
 {
     BST bst;
-    bst.Insert(6);
-    bst.Insert(4);
-    bst.Insert(3);
     bst.Insert(5);
-    bst.Insert(7);
     bst.Insert(8);
-
-//    bst.BFS();
-
-//    cout << bst.Search(9) << "\n";
-//    cout << bst.Search(7) << "\n";
+    bst.Insert(3);
+    bst.Insert(4);
+    bst.Insert(7);
+    bst.Insert(9);
+    bst.Insert(10);
+    bst.Insert(2);
 
 //    bst.Delete(5);
-//    bst.Delete(7);
-    bst.Delete(6);
     bst.BFS();
-
+    cout << (bst.Search(9) ? "Exist!\n" : "Not exist!\n");
+    cout << "Minimum value: " << bst.Minimum() << "\n";
+    cout << "Maximum value: " << bst.Maximum() << "\n";
+    cout << (bst.isValidBinaryTree(bst.root) ? "Valid tree!\n" : "Not valid!\n");
     return 0;
 }
