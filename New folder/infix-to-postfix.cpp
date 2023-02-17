@@ -11,7 +11,7 @@ int prec(char ch)
 
 int main()
 {
-    string infix = "a+b*c+d*e";
+    string infix = "a*b+c*d+e";
     stack<int>st;
     string postfix = "";
 
