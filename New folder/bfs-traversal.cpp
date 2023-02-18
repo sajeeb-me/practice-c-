@@ -177,6 +177,8 @@ int main()
     bt.Insertaion(4, 8);
     bt.Insertaion(5, 5);
     bt.Insertaion(6, 7);
+    bt.Insertaion(7, 7);
+    bt.Insertaion(8, 7);
 
     cout << "Height: " << bt.height(bt.root) << "\n";
     cout << "Is perfect: " << (bt.isPerfect(bt.root) ? "Yes\n" : "No\n" );
@@ -185,7 +187,7 @@ int main()
 //    bt.BFS();
 //    bt.Inorder(bt.root);
 //    bt.Preorder(bt.root);
-//    bt.Postorder(bt.root);
+    bt.Postorder(bt.root);
 
 //    bt.Search(bt.root, 8);
 

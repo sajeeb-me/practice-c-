@@ -157,27 +157,58 @@ public:
         Delete(saved);
         cur->value = saved;
     }
+    void Inorder(node* a)
+    {
+        if(a == NULL)
+            return;
+        Inorder(a->Left);
+        cout << a->value << " ";
+        Inorder(a->Right);
+    }
+    void Preorder(node* a)
+    {
+        if(a == NULL)
+            return;
+        cout << a->value << " ";
+        Preorder(a->Left);
+        Preorder(a->Right);
+    }
+    void Postorder(node* a)
+    {
+        if(a == NULL)
+            return;
+        Postorder(a->Left);
+        Postorder(a->Right);
+        cout << a->value << " ";
+    }
+
 };
 
 int main()
 {
     BST bst;
-    bst.Insert(6);
-    bst.Insert(4);
-    bst.Insert(3);
+    bst.Insert(20);
+    bst.Insert(10);
+    bst.Insert(22);
     bst.Insert(5);
-    bst.Insert(7);
-    bst.Insert(8);
+    bst.Insert(12);
+    bst.Insert(21);
+    bst.Insert(25);
+    bst.Insert(3);
+    bst.Insert(15);
 
-//    bst.BFS();
+    bst.BFS();
 
 //    cout << bst.Search(9) << "\n";
 //    cout << bst.Search(7) << "\n";
 
 //    bst.Delete(5);
 //    bst.Delete(7);
-    bst.Delete(6);
-    bst.BFS();
+//    bst.Delete(6);
+//    bst.BFS();
+//    bst.Inorder(bst.root);
+//    bst.Preorder(bst.root);
+    bst.Postorder(bst.root);
 
     return 0;
 }
