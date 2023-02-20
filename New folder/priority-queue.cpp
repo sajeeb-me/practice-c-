@@ -63,57 +63,51 @@ public:
         }
         return nodes[0];
     }
-    int ExtractMax()
+    int size()
     {
-        if(nodes.empty())
-        {
-            cout << "Heap is empty!\n";
-            return -1;
-        }
-        int ret = nodes[0];
-        Delete(0);
-        return ret;
+        return nodes.size();
     }
-    void build_from_array(vector<int>&a)
+};
+class PriorityQueue
+{
+public:
+    MaxHeap h;
+    PriorityQueue()
     {
-        nodes = a;
-        int n = nodes.size();
-        int last_non_leaf = n/2 -1;
-        for(int i=last_non_leaf; i>=0; i--)
-            down_heapify(i);
-    }
-    vector<int> heap_sort(vector<int>a)
-    {
-        MaxHeap h;
-        h.build_from_array(a);
-        vector<int>ans;
-        for(int i=0; i<a.size(); i++)
-            ans.push_back(h.ExtractMax());
-        reverse(ans.begin(), ans.end());
-        return ans;
-    }
 
+    }
+    void push(int x)
+    {
+        h.insert(x);
+    }
+    void pop()
+    {
+        h.Delete(0);
+    }
+    int top()
+    {
+        return h.getMax();
+    }
+    int size()
+    {
+        return h.size();
+    }
 };
 
 int main()
 {
-    MaxHeap heap;
-    vector<int>a = {1,2,3,4,10,9,8,7};
-    heap.build_from_array(a);
-    heap.PrintHeap();
+    PriorityQueue pt;
+    pt.push(5);
+    pt.push(7);
+    pt.push(10);
+    pt.push(1);
+    pt.push(2);
 
-    vector<int>sorted_heap = heap.heap_sort(a);
-    for(int i=0; i<sorted_heap.size(); i++)
-        cout << sorted_heap[i] << " ";
-    cout << "\n";
-
-
-
-//    cout << heap.getMax() << "\n";
-//    cout << heap.ExtractMax() << "\n";
-//    cout << heap.ExtractMax() << "\n";
-//    heap.Delete(0);
-//    heap.PrintHeap();
+    while(pt.size())
+    {
+        cout << pt.top() << " ";
+        pt.pop();
+    }
 
     return 0;
 }
