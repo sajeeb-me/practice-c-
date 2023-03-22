@@ -47,7 +47,7 @@ void bfs(pair<int, int>src)
         for(int i=0; i<4; i++)
         {
             int new_x = x + dx[i];
-            int new_y = y + dx[i];
+            int new_y = y + dy[i];
 
             pair<int, int> adj_node = {new_x, new_y};
 
@@ -67,10 +67,7 @@ pair<int, int> find_unvisited()
     for(int i=0; i<n; i++)
         for(int j=0; j<m; j++)
             if(visited[i][j] == 0 && maze[i][j] == 0)
-            {
-                cout << i << " " << j << "\n";
                 return {i, j};
-            }
 
     return {-1, -1};
 }

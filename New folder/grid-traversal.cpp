@@ -56,7 +56,7 @@ void bfs(pair<int, int>src)
         for(int i=0; i<4; i++)
         {
             int new_x = x + dx[i];
-            int new_y = y + dx[i];
+            int new_y = y + dy[i];
 
             pair<int, int> adj_node = {new_x, new_y};
 
@@ -110,6 +110,9 @@ int main()
         cout << level[dst.first][dst.second] << "\n";
 //        cout << dst.first << " " << dst.second << "\n";
     }
+
+//    cout << "src" << src.first << " " << src.second << "\n";
+//    cout << "dst" << dst.first << " " << dst.second << "\n";
 
     return 0;
 }
