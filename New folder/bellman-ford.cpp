@@ -2,10 +2,11 @@
 using namespace std;
 
 const int N = 1e5 + 5;
-const int INF = 1e9;
+const long long INF = 1e18;
 
 vector<pair<int, int>> adj_list[N];
-int d[N];
+long long d[N];
+int parent[N];
 
 int main()
 {
@@ -21,10 +22,8 @@ int main()
         adj_list[u].push_back({v, w});
     }
 
-    int src = 1;
-    d[src] = 0;
-
     bool negative_cycle = false;
+    int last_updated_node = -1;
 
     for(int i=1; i<=n; i++)
     {
@@ -39,7 +38,12 @@ int main()
                 if(d[u]+ w < d[v])
                 {
                     d[v] = d[u]+w;
-                    if(i == n) negative_cycle = true;
+                    parent[v] = u;
+                    if(i == n)
+                    {
+                        negative_cycle = true;
+                        last_updated_node = v;
+                    }
                 }
             }
         }
@@ -47,13 +51,40 @@ int main()
 
     if(negative_cycle)
     {
-        cout << "Graph has negative cycle\n";
+        cout << "YES\n";
+
+        int selected_node = last_updated_node;
+        for(int i = 1; i<=n-1; i++)
+            selected_node = parent[selected_node];
+
+        int first_node = selected_node;
+        vector<int>cycle;
+        cycle.push_back(selected_node);
+
+        while(1)
+        {
+            selected_node = parent[selected_node];
+            cycle.push_back(selected_node);
+            if(selected_node == first_node)
+                break;
+        }
+        reverse(cycle.begin(), cycle.end());
+        for(int node: cycle) cout << node << " ";
     }
     else
     {
-        for(int i=1; i<=n; i++) cout << d[i] << " ";
-        cout << "\n";
+        cout << "NO\n";
     }
 
     return 0;
 }
+
+
+/*
+4 5
+1 2 1
+2 4 1
+3 1 1
+4 1 -3
+4 3 -2
+*/
